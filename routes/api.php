@@ -11,8 +11,15 @@ use App\Http\Controllers\AuthController;
 //ENDPOINTS DE AUTENTICACIÓN//
 //**************************//
 
+Route::post('/register', [AuthController::class, 'register']);
 
-
+Route::group([
+    'middleware' => 'jwt.auth'
+], function () {
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/profile', [AuthController::class, 'me']);
+});
 
 
 
