@@ -3,27 +3,21 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-// Enlace a la clase que contiene los métodos de la API HomeController
+// Enlaces a la clases que contienen los métodos de la API
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PartidaController;
 
-
-//**************************//
-//ENDPOINTS DE AUTENTICACIÓN//
-//**************************//
-
+// ENDPOINTS DE AUTENTIFICACIÓN //
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-
 Route::group([
     'middleware' => 'jwt.auth'
 ], function () {
-    
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/profile', [AuthController::class, 'me']);
 });
-
-
-
+    // ENDPOINTS DE PARTIDA //
+    Route::get('partidas', [PartidaController::class, "GETpartidas"]);
 
 
 // Los requisitos funcionales de la aplicación son los siguientes:
