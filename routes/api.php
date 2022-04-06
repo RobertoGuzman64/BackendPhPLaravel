@@ -17,9 +17,21 @@ Route::group([
     Route::get('/profile', [AuthController::class, 'me']);
 });
     // ENDPOINTS DE PARTIDA //
-    Route::get('partidas', [PartidaController::class, "GETpartidas"]);
+    Route::get('partidas', [PartidaController::class, "GETmostrarPartidas"]);
+    Route::post('partidas', [PartidaController::class, "POSTcrearPartida"]);
 
 
+
+
+
+
+
+
+
+
+
+
+    
 // Los requisitos funcionales de la aplicación son los siguientes:
 // ● RF.1 Los usuarios se tienen que poder registrar a la aplicación,
 // estableciendo un usuario/contraseña.
