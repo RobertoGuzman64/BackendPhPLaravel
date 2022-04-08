@@ -21,6 +21,7 @@ Route::group([
     Route::get('/partidas', [PartidaController::class, "GETmostrarPartidas"]);
     Route::post('/partidas', [PartidaController::class, "POSTcrearPartida"]);
     Route::post('/partidaId', [PartyController::class, "POSTmostrarPartidaId"]);
+    Route::put('/partidaActualiza', [PartyController::class, "PUTactualizaPartida"]);
 
 
 

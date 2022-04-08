@@ -57,4 +57,26 @@ class PartidaController extends Controller
             }
         }
     }
+
+    // METODO DE ACTUALIZAR PARTIDA
+    public function PUTactualizaPartida(Request $request)
+    {
+        $id = $request->input('id');
+        $name = $request->input('name');
+        $propietarioId = $request->input('propietarioId');
+        $juegoId = $request->input('juegoId');
+        try {
+            $partida = Partida::find($id);
+            $partida->name = $name;
+            $partida->propietarioId = $propietarioId;
+            $partida->juegoId = $juegoId;
+            $partida->save();
+            return $partida;
+        } catch (QueryException $error) {
+            $codigoError = $error->errorInfo[1];
+            if ($codigoError) {
+                return "Error $codigoError";
+            }
+        }
+    }
 }
