@@ -16,10 +16,11 @@ Route::group([
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/profile', [AuthController::class, 'me']);
 });
-    // ENDPOINTS DE PARTIDA //
-    Route::get('partidas', [PartidaController::class, "GETmostrarPartidas"]);
-    Route::post('partidas', [PartidaController::class, "POSTcrearPartida"]);
 
+    // ENDPOINTS DE PARTIDA //
+    Route::get('/partidas', [PartidaController::class, "GETmostrarPartidas"]);
+    Route::post('/partidas', [PartidaController::class, "POSTcrearPartida"]);
+    Route::post('/partidaId', [PartyController::class, "POSTmostrarPartidaId"]);
 
 
 

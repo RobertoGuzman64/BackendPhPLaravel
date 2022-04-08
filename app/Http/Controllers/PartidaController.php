@@ -42,4 +42,19 @@ class PartidaController extends Controller
             }
         }
     }
+
+    // METODO DE MOSTRAR PARTIDA POR ID
+    public function POSTmostrarPartidaId(Request $request)
+    {
+        $id = $request->input('id');
+        try {
+            $partida = Partida::find($id);
+            return $partida;
+        } catch (QueryException $error) {
+            $codigoError = $error->errorInfo[1];
+            if ($codigoError) {
+                return "Error $codigoError";
+            }
+        }
+    }
 }

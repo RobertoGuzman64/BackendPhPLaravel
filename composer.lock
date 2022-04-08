@@ -5366,16 +5366,16 @@
         },
         {
             "name": "tymon/jwt-auth",
-            "version": "dev-develop",
+            "version": "dev-dependabot/composer/yoast/phpunit-polyfills-tw-1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tymondesigns/jwt-auth.git",
-                "reference": "ab00f2d7cce5f043067aef7849cdc792de2df635"
+                "reference": "714915bf5e68b9ba6635f6a9c43bcc0ff3abbdd0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tymondesigns/jwt-auth/zipball/ab00f2d7cce5f043067aef7849cdc792de2df635",
-                "reference": "ab00f2d7cce5f043067aef7849cdc792de2df635",
+                "url": "https://api.github.com/repos/tymondesigns/jwt-auth/zipball/714915bf5e68b9ba6635f6a9c43bcc0ff3abbdd0",
+                "reference": "714915bf5e68b9ba6635f6a9c43bcc0ff3abbdd0",
                 "shasum": ""
             },
             "require": {
@@ -5394,9 +5394,8 @@
                 "illuminate/routing": "^5.2|^6|^7|^8",
                 "mockery/mockery": ">=0.9.9",
                 "phpunit/phpunit": "^8.5|^9.4",
-                "yoast/phpunit-polyfills": "^0.2.0"
+                "yoast/phpunit-polyfills": "^1.0.0"
             },
-            "default-branch": true,
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -5448,7 +5447,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2021-02-02T14:44:28+00:00"
+            "time": "2021-06-21T05:36:07+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
