@@ -20,8 +20,9 @@ Route::group([
     // ENDPOINTS DE PARTIDA //
     Route::get('/partidas', [PartidaController::class, "GETmostrarPartidas"]);
     Route::post('/partidas', [PartidaController::class, "POSTcrearPartida"]);
-    Route::post('/partidaId', [PartyController::class, "POSTmostrarPartidaId"]);
-    Route::put('/partidaActualiza', [PartyController::class, "PUTactualizaPartida"]);
+    Route::post('/partidaId', [PartidaController::class, "POSTmostrarPartidaId"]);
+    Route::put('/partidaActualiza', [PartidaController::class, "PUTactualizaPartida"]);
+    Route::delete('/partidaBorrar', [PartidaController::class, "DELETEborrarPartida"]);
 
 
 

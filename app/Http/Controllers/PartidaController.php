@@ -79,4 +79,20 @@ class PartidaController extends Controller
             }
         }
     }
+
+    // METODO DE BORRAR PARTIDA
+    public function DELETEborrarPartida(Request $request)
+    {
+        $id = $request->input('id');
+        try {
+            $partida = Partida::find($id);
+            $partida->delete();
+            return $partida;
+        } catch (QueryException $error) {
+            $codigoError = $error->errorInfo[1];
+            if ($codigoError) {
+                return "Error $codigoError";
+            }
+        }
+    }
 }
