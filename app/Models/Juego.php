@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Juego extends Model
 {
     use HasFactory;
+    public $fillable = [
+        "titulo",
+        "imagenJuegoURL",
+        "juegoURL",
+    ];
+    public function partidas()
+    {
+        return $this->hasMany(Partida::class);
+    }
 }
