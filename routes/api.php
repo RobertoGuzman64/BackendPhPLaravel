@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 // Enlaces a la clases que contienen los métodos de la API
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PartidaController;
+use App\Http\Controllers\JuegoController;
 
 // ENDPOINTS DE AUTENTIFICACIÓN //
 Route::post('/register', [AuthController::class, 'register']);
@@ -25,7 +26,12 @@ Route::group([
     Route::delete('/partidaBorrar', [PartidaController::class, "DELETEborrarPartida"]);
 
 
-
+    // ENDPOINTS DE JUEGO //
+    Route::get('/juegos', [JuegoController::class, "GETmostrarJuegos"]);
+    Route::post('/juegos', [JuegoController::class, "POSTcrearJuego"]);
+    Route::post('/juegoId', [JuegoController::class, "POSTmostrarJuegoId"]);
+    Route::put('/juegoActualiza', [JuegoController::class, "PUTactualizaJuego"]);
+    Route::delete('/juegoBorrar', [JuegoController::class, "DELETEborrarJuego"]);
 
 
 
