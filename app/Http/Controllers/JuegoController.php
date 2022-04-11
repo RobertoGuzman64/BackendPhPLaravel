@@ -77,4 +77,19 @@ class JuegoController extends Controller
             }
         }
     }
+    // METODO DE ELIMINAR UN JUEGO
+    public function DELETEborrarJuego(Request $request)
+    {
+        $id = $request->input('id');
+        try {
+            $juego = Juego::find($id);
+            $juego->delete();
+            return "Juego Borrado";
+        } catch (QueryException $error) {
+            $codigoError = $error->errorInfo[1];
+            if ($codigoError) {
+                return "Error $codigoError";
+            }
+        }
+    }
 }
