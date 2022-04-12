@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PartidaController;
 use App\Http\Controllers\JuegoController;
+use App\Http\Controllers\MensajeController;
 
 // ENDPOINTS DE AUTENTIFICACIÓN //
 Route::post('/register', [AuthController::class, 'register']);
@@ -25,7 +26,6 @@ Route::group([
     Route::put('/partidaActualiza', [PartidaController::class, "PUTactualizaPartida"]);
     Route::delete('/partidaBorrar', [PartidaController::class, "DELETEborrarPartida"]);
 
-
     // ENDPOINTS DE JUEGO //
     Route::get('/juegos', [JuegoController::class, "GETmostrarJuegos"]);
     Route::post('/juegos', [JuegoController::class, "POSTcrearJuego"]);
@@ -33,8 +33,14 @@ Route::group([
     Route::put('/juegoActualiza', [JuegoController::class, "PUTactualizaJuego"]);
     Route::delete('/juegoBorrar', [JuegoController::class, "DELETEborrarJuego"]);
 
+    // ENPOINTS DE MENSAJES //
+    Route::get('/mensajes', [MensajeController::class, "GETmostrarMensajes"]);
+    Route::post('/mensajes', [MensajeController::class, "POSTcrearMensaje"]);
+    Route::post('/mensajeId', [MensajeController::class, "POSTmostrarMensajeId"]);
+    Route::put('/mensajeActualiza', [MensajeController::class, "PUTactualizaMensaje"]);
+    Route::delete('/mensajeBorrar', [MensajeController::class, "DELETEborrarMensaje"]);
 
-
+    // ENDPOINTS DE USUARIOS //
 
 
 
