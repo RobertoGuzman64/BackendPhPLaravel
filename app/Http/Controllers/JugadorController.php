@@ -50,4 +50,17 @@ class JugadorController extends Controller
             }
         }
     }
+    // METODO DE MOSTRAR UN JUGADOR POR PARTIDA ID
+    public function POSTmostrarJugadorPartidaId(Request $request){
+        $partidaId = $request->input('partidaId');
+        try {
+            $jugador = Jugador::where('partidaId', $partidaId)->get();
+            return $jugador;
+        } catch (QueryException $error) {
+            $codigoError = $error->errorInfo[1];
+            if($codigoError){
+                return "Error $codigoError";
+            }
+        }
+    }
 }
