@@ -103,4 +103,30 @@ class JugadorController extends Controller
             }
         }
     }
+    // METODO DE ELIMINAR UN JUGADOR
+    public function DELETEborrarJugador(Request $request)
+    {
+        $jugadorId = $request->input('jugadorId');
+        try {
+            $arrayJugador = Jugador::all()->where('jugadorId', '=', $jugadorId);
+            $jugador = Jugador::where('jugadorId', '=', $jugadorId);
+            if (count($arrayJugador) == 0) {
+                return response()->json([
+                    "data" => $arrayJugador,
+                    "message" => "No se a encontrado el jugador"
+                ]);
+            } else {
+                $jugador->delete();
+                return response()->json([
+                    "data" => $arrayJugador,
+                    "message" => "Jugador borrado"
+                ]);
+            }
+        } catch (QueryException $error) {
+            $codigoError = $error->errorInfo[1];
+            if ($codigoError) {
+                return "Error $codigoError";
+            }
+        }
+    }
 }
