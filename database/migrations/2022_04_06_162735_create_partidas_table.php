@@ -15,7 +15,7 @@ class CreatePartidasTable extends Migration
     {
         Schema::create('partidas', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 100);
+            $table->string('nombre', 100);
             $table->unsignedInteger('juegoId');
             $table->foreign('juegoId')
             ->references('id')
@@ -27,9 +27,9 @@ class CreatePartidasTable extends Migration
             $table->unsignedInteger('propietarioId');
             $table->foreign('propietarioId')
             ->references('id')
-            ->on('users')
+            ->on('usuarios')
             ->unsigned()
-            ->constrained('users')
+            ->constrained('usuarios')
             ->onUpdate('cascade')
             ->onDelete('cascade');
             $table->timestamps();

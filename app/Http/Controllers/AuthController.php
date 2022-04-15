@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
@@ -15,29 +15,29 @@ class AuthController extends Controller
     {
         // Log::info($request);
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6',
+            'nombre' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:usuarios',
+            'clave' => 'required|string|min:6',
         ]);
 
         if ($validator->fails()) {
             return response()->json($validator->errors()->toJson(), 400);
         }
 
-        $user = User::create([
-            'name' => $request->get('name'),
+        $usuario = Usuario::create([
+            'nombre' => $request->get('nombre'),
             'email' => $request->get('email'),
-            'password' => bcrypt($request->password)
+            'clave' => bcrypt($request->clave)
         ]);
 
-        $token = JWTAuth::fromUser($user);
+        $token = JWTAuth::fromUsuario($usuario);
 
-        return response()->json(compact('user', 'token'), 201);
+        return response()->json(compact('usuario', 'token'), 201);
     }
 
     public function login(Request $request)
     {
-        $input = $request->only('email', 'password');
+        $input = $request->only('email', 'clave');
         $jwt_token = null;
 
         if (!$jwt_token = JWTAuth::attempt($input)) {
@@ -64,18 +64,18 @@ class AuthController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'User logged out successfully'
+                'message' => 'Usuario logged out successfully'
             ]);
         } catch (\Exception $exception) {
             return response()->json([
                 'success' => false,
-                'message' => 'Sorry, the user cannot be logged out'
+                'message' => 'Sorry, the usuario cannot be logged out'
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
     public function me()
     {
-        return response()->json(auth()->user());;
+        return response()->json(auth()->usuario());;
     }
 }

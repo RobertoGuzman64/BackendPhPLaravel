@@ -22,7 +22,7 @@ class Partida extends Model
 
     public function jugadores()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Usuario::class);
     }
 
     public function mensajes()
