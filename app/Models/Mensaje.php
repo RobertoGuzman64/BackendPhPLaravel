@@ -15,12 +15,12 @@ class Mensaje extends Model
         'partidaId'
     ];
 
-    public function Jugadores()
+    public function jugadores()
     {
         return $this->belongsTo(Usuario::class);
     }
 
-    public function Partidas()
+    public function partidas()
     {
         return $this->belongsTo(Partida::class);
     }
