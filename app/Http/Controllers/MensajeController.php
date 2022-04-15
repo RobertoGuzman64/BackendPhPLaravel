@@ -50,4 +50,21 @@ class MensajeController extends Controller
             }
         }
     }
+    // METODO DE ACTUALIZAR UN MENSAJE
+    public function PUTactualizaMensaje(Request $request)
+    {
+        try {
+            $mensaje = Mensaje::find($request->input('id'));
+            $mensaje->id_usuario = $request->input('id_usuario');
+            $mensaje->id_partida = $request->input('id_partida');
+            $mensaje->mensaje = $request->input('mensaje');
+            $mensaje->save();
+            return $mensaje;
+        } catch (QueryException $error) {
+            $codigoError = $error->errorInfo[1];
+            if ($codigoError) {
+                return "Error $codigoError";
+            }
+        }
+    }
 }
