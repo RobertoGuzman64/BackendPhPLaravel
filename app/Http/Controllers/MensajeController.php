@@ -67,4 +67,18 @@ class MensajeController extends Controller
             }
         }
     }
+    // METODO DE ELIMINAR UN MENSAJE
+    public function DELETEborrarMensaje(Request $request)
+    {
+        try {
+            $mensaje = Mensaje::find($request->input('id'));
+            $mensaje->delete();
+            return $mensaje;
+        } catch (QueryException $error) {
+            $codigoError = $error->errorInfo[1];
+            if ($codigoError) {
+                return "Error $codigoError";
+            }
+        }
+    }
 }
