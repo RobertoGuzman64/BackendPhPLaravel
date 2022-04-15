@@ -20,7 +20,7 @@ class Partida extends Model
         return $this->belongsTo(Juego::class);
     }
 
-    public function jugadores()
+    public function usuarios()
     {
         return $this->belongsTo(Usuario::class);
     }

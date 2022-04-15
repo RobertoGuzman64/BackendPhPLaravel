@@ -17,8 +17,8 @@ class CreateMensajesTable extends Migration
             $table->increments('id');
             $table->string('mensaje', 100);
             $table->string('date', 100);
-            $table->unsignedInteger('jugadorId');
-            $table->foreign('jugadorId')
+            $table->unsignedInteger('usuarioId');
+            $table->foreign('usuarioId')
                 ->references('id')
                 ->on('usuarios')
                 ->unsigned()

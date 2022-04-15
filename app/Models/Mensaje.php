@@ -11,11 +11,11 @@ class Mensaje extends Model
     public $fillable = [
         'mensaje',
         'fecha',
-        'jugadorId',
+        'usuarioId',
         'partidaId'
     ];
 
-    public function jugadores()
+    public function usuarios()
     {
         return $this->belongsTo(Usuario::class);
     }
