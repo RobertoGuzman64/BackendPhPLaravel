@@ -7,6 +7,7 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\PartidaController;
 use App\Http\Controllers\JuegoController;
 use App\Http\Controllers\MensajeController;
+use App\Http\Controllers\JugadorController;
 
 // ENDPOINTS DE AUTENTIFICACIÓN / USUARIOS //
 Route::post('/register', [UsuarioController::class, 'register']);
@@ -43,6 +44,13 @@ Route::put('/mensajeActualiza', [MensajeController::class, "PUTactualizaMensaje"
 Route::delete('/mensajeBorrar', [MensajeController::class, "DELETEborrarMensaje"]);
 
 // ENDPOINTS DE JUGADORES //
+Route::get('/jugadores', [JugadorController::class, "GETmostrarJugadores"]);
+Route::post('/jugadores', [JugadorController::class, "POSTcrearJugador"]);
+Route::post('/jugadorId', [JugadorController::class, "POSTmostrarJugadorId"]);
+Route::post('/jugadorPartidaId', [JugadorController::class, "POSTmostrarJugadorPartidaId"]);
+Route::post('/jugadorUsuarioId', [JugadorController::class, "POSTmostrarJugadorUsuarioId"]);
+Route::put('/jugadorActualiza', [JugadorController::class, "PUTactualizaJugador"]);
+Route::delete('/jugadorBorrar', [JugadorController::class, "DELETEborrarJugador"]);
 
 
 
