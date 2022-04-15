@@ -18,20 +18,20 @@ class CreatePartidasTable extends Migration
             $table->string('nombre', 100);
             $table->unsignedInteger('juegoId');
             $table->foreign('juegoId')
-            ->references('id')
-            ->on('juegos')
-            ->unsigned()
-            ->constrained('juegos')
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
+                ->references('id')
+                ->on('juegos')
+                ->unsigned()
+                ->constrained('juegos')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->unsignedInteger('propietarioId');
             $table->foreign('propietarioId')
-            ->references('id')
-            ->on('usuarios')
-            ->unsigned()
-            ->constrained('usuarios')
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
+                ->references('id')
+                ->on('usuarios')
+                ->unsigned()
+                ->constrained('usuarios')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

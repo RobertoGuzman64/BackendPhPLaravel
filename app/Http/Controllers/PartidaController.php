@@ -24,13 +24,13 @@ class PartidaController extends Controller
     // METODO DE CREAR PARTIDA
     public function POSTcrearPartida(Request $request)
     {
-        $name = $request->input('name');
+        $nombre = $request->input('nombre');
         $propietarioId = $request->input('propietarioId');
         $juegoId = $request->input('juegoId');
         try {
             return Partida::create(
                 [
-                    'name' => $name,
+                    'nombre' => $nombre,
                     'propietarioId' => $propietarioId,
                     'juegoId' => $juegoId
                 ]
@@ -62,12 +62,12 @@ class PartidaController extends Controller
     public function PUTactualizaPartida(Request $request)
     {
         $id = $request->input('id');
-        $name = $request->input('name');
+        $nombre = $request->input('nombre');
         $propietarioId = $request->input('propietarioId');
         $juegoId = $request->input('juegoId');
         try {
             $partida = Partida::find($id);
-            $partida->name = $name;
+            $partida->nombre = $nombre;
             $partida->propietarioId = $propietarioId;
             $partida->juegoId = $juegoId;
             $partida->save();

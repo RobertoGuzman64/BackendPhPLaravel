@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 
 use Tymon\JWTAuth\Facades\JWTAuth;
 
-class AuthController extends Controller
+class UsuarioController extends Controller
 {
     public function register(Request $request)
     {
@@ -76,6 +76,6 @@ class AuthController extends Controller
 
     public function me()
     {
-        return response()->json(auth()->usuario());;
+        return response()->json(auth()->user());;
     }
 }

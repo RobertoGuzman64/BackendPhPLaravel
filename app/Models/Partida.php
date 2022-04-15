@@ -10,7 +10,7 @@ class Partida extends Model
     use HasFactory;
 
     public $fillable = [
-        "name",
+        "nombre",
         "propietarioId",
         "juegoId",
     ];
