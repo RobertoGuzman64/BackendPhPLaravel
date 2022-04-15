@@ -1,47 +1,48 @@
 <?php
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
 // Enlaces a la clases que contienen los métodos de la API
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\PartidaController;
 use App\Http\Controllers\JuegoController;
 use App\Http\Controllers\MensajeController;
 
-// ENDPOINTS DE AUTENTIFICACIÓN //
+// ENDPOINTS DE AUTENTIFICACIÓN / USUARIOS //
 Route::post('/register', [UsuarioController::class, 'register']);
 Route::post('/login', [UsuarioController::class, 'login']);
-Route::group([
-    'middleware' => 'jwt.auth'
-], function () {
+Route::delete('/borrarUsuario', [UsuarioController::class, 'borrarUsuario']);
+Route::put('/actualizarUsuario', [UsuarioController::class, 'actualizarUsuario']);
+
+// ENDPOINTS DE AUTENTIFICACIÓN / USUARIOS / MIDDLEWARE //
+Route::group(['middleware' => 'jwt.auth'], function () {
     Route::post('/logout', [UsuarioController::class, 'logout']);
     Route::get('/profile', [UsuarioController::class, 'me']);
 });
 
-    // ENDPOINTS DE PARTIDA //
-    Route::get('/partidas', [PartidaController::class, "GETmostrarPartidas"]);
-    Route::post('/partidas', [PartidaController::class, "POSTcrearPartida"]);
-    Route::post('/partidaId', [PartidaController::class, "POSTmostrarPartidaId"]);
-    Route::put('/partidaActualiza', [PartidaController::class, "PUTactualizaPartida"]);
-    Route::delete('/partidaBorrar', [PartidaController::class, "DELETEborrarPartida"]);
+// ENDPOINTS DE PARTIDA //
+Route::get('/partidas', [PartidaController::class, "GETmostrarPartidas"]);
+Route::post('/partidas', [PartidaController::class, "POSTcrearPartida"]);
+Route::post('/partidaId', [PartidaController::class, "POSTmostrarPartidaId"]);
+Route::put('/partidaActualiza', [PartidaController::class, "PUTactualizaPartida"]);
+Route::delete('/partidaBorrar', [PartidaController::class, "DELETEborrarPartida"]);
 
-    // ENDPOINTS DE JUEGO //
-    Route::get('/juegos', [JuegoController::class, "GETmostrarJuegos"]);
-    Route::post('/juegos', [JuegoController::class, "POSTcrearJuego"]);
-    Route::post('/juegoId', [JuegoController::class, "POSTmostrarJuegoId"]);
-    Route::put('/juegoActualiza', [JuegoController::class, "PUTactualizaJuego"]);
-    Route::delete('/juegoBorrar', [JuegoController::class, "DELETEborrarJuego"]);
+// ENDPOINTS DE JUEGO //
+Route::get('/juegos', [JuegoController::class, "GETmostrarJuegos"]);
+Route::post('/juegos', [JuegoController::class, "POSTcrearJuego"]);
+Route::post('/juegoId', [JuegoController::class, "POSTmostrarJuegoId"]);
+Route::put('/juegoActualiza', [JuegoController::class, "PUTactualizaJuego"]);
+Route::delete('/juegoBorrar', [JuegoController::class, "DELETEborrarJuego"]);
 
-    // ENPOINTS DE MENSAJES //
-    Route::get('/mensajes', [MensajeController::class, "GETmostrarMensajes"]);
-    Route::get('/mensajePartidaId', [MensajeController::class, "GETmensajePartidaId"]);
-    Route::post('/mensajes', [MensajeController::class, "POSTcrearMensaje"]);
-    Route::post('/mensajeId', [MensajeController::class, "POSTmostrarMensajeId"]);
-    Route::put('/mensajeActualiza', [MensajeController::class, "PUTactualizaMensaje"]);
-    Route::delete('/mensajeBorrar', [MensajeController::class, "DELETEborrarMensaje"]);
+// ENPOINTS DE MENSAJES //
+Route::get('/mensajes', [MensajeController::class, "GETmostrarMensajes"]);
+Route::get('/mensajePartidaId', [MensajeController::class, "GETmensajePartidaId"]);
+Route::post('/mensajes', [MensajeController::class, "POSTcrearMensaje"]);
+Route::post('/mensajeId', [MensajeController::class, "POSTmostrarMensajeId"]);
+Route::put('/mensajeActualiza', [MensajeController::class, "PUTactualizaMensaje"]);
+Route::delete('/mensajeBorrar', [MensajeController::class, "DELETEborrarMensaje"]);
 
-    // ENDPOINTS DE USUARIOS //
+// ENDPOINTS DE JUGADORES //
+
 
 
 
