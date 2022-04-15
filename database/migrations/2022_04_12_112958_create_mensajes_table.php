@@ -18,7 +18,7 @@ class CreateMensajesTable extends Migration
             $table->string('mensaje', 100);
             $table->string('date', 100);
             $table->unsignedInteger('jugadorId');
-            $table->foreing('jugadorId')
+            $table->foreign('jugadorId')
                 ->references('id')
                 ->on('usuarios')
                 ->unsigned()
@@ -26,7 +26,7 @@ class CreateMensajesTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->unsignedInteger('partidaId');
-            $table->foreing('partidaId')
+            $table->foreign('partidaId')
                 ->references('id')
                 ->on('partidas')
                 ->unsigned()
