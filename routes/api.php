@@ -4,19 +4,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 // Enlaces a la clases que contienen los métodos de la API
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\PartidaController;
 use App\Http\Controllers\JuegoController;
 use App\Http\Controllers\MensajeController;
 
 // ENDPOINTS DE AUTENTIFICACIÓN //
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [UsuarioController::class, 'register']);
+Route::post('/login', [UsuarioController::class, 'login']);
 Route::group([
     'middleware' => 'jwt.auth'
 ], function () {
-    Route::post('/logout', [AuthController::class, 'logout']);
-    Route::get('/profile', [AuthController::class, 'me']);
+    Route::post('/logout', [UsuarioController::class, 'logout']);
+    Route::get('/profile', [UsuarioController::class, 'me']);
 });
 
     // ENDPOINTS DE PARTIDA //
