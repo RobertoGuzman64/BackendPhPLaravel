@@ -37,4 +37,17 @@ class MensajeController extends Controller
             }
         }
     }
+    // METODO DE MOSTRAR UN MENSAJE POR ID
+    public function POSTmostrarMensajeId(Request $request)
+    {
+        try {
+            $mensaje = Mensaje::find($request->input('id'));
+            return $mensaje;
+        } catch (QueryException $error) {
+            $codigoError = $error->errorInfo[1];
+            if ($codigoError) {
+                return "Error $codigoError";
+            }
+        }
+    }
 }
