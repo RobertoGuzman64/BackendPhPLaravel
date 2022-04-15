@@ -94,4 +94,18 @@ class UsuarioController extends Controller
             }
         }
     }
+    // METODO DE ELIMINAR USUARIO
+    public function DELETEborrarUsuario(Request $request)
+    {
+        $id = $request->input('id');
+        try {
+            $usuario = Usuario::where('id', '=', $id)->delete();
+            return Usuario::all()->where('id', '=', $id);
+        } catch (QueryException $error) {
+            $codigoError = $error->errorInfo[1];
+            if ($codigoError) {
+                return "Error $codigoError";
+            }
+        }
+    }
 }
