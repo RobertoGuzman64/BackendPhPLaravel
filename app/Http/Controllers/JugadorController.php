@@ -63,4 +63,17 @@ class JugadorController extends Controller
             }
         }
     }
+    // METODO DE MOSTRAR UN JUGADOR POR USUARIO ID
+    public function POSTmostrarJugadorUsuarioId(Request $request){
+        $usuarioId = $request->input('usuarioId');
+        try {
+            $jugador = Jugador::where('usuarioId', $usuarioId)->get();
+            return $jugador;
+        } catch (QueryException $error) {
+            $codigoError = $error->errorInfo[1];
+            if($codigoError){
+                return "Error $codigoError";
+            }
+        }
+    }
 }
