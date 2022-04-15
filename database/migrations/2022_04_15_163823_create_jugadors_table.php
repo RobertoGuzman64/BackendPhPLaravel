@@ -14,7 +14,23 @@ class CreateJugadorsTable extends Migration
     public function up()
     {
         Schema::create('jugadors', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->unsignedInteger('partidaId');
+            $table->foreign('partidaId')
+                ->references('id')
+                ->on('partidas')
+                ->unsigned()
+                ->constrained('partidas')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->unsignedInteger('usuarioId');
+            $table->foreign('usuarioId')
+                ->references('id')
+                ->on('usuarios')
+                ->unsigned()
+                ->constrained('usuarios')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }
