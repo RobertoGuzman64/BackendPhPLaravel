@@ -35,6 +35,7 @@ Route::group([
 
     // ENPOINTS DE MENSAJES //
     Route::get('/mensajes', [MensajeController::class, "GETmostrarMensajes"]);
+    Route::get('/mensajePartidaId', [MensajeController::class, "GETmensajePartidaId"]);
     Route::post('/mensajes', [MensajeController::class, "POSTcrearMensaje"]);
     Route::post('/mensajeId', [MensajeController::class, "POSTmostrarMensajeId"]);
     Route::put('/mensajeActualiza', [MensajeController::class, "PUTactualizaMensaje"]);
