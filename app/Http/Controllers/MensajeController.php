@@ -20,4 +20,21 @@ class MensajeController extends Controller
             }
         }
     }
+    // METODO DE CREAR UN MENSAJE
+    public function POSTcrearMensaje(Request $request)
+    {
+        try {
+            $mensaje = new Mensaje();
+            $mensaje->id_usuario = $request->input('id_usuario');
+            $mensaje->id_partida = $request->input('id_partida');
+            $mensaje->mensaje = $request->input('mensaje');
+            $mensaje->save();
+            return $mensaje;
+        } catch (QueryException $error) {
+            $codigoError = $error->errorInfo[1];
+            if ($codigoError) {
+                return "Error $codigoError";
+            }
+        }
+    }
 }
