@@ -3,65 +3,57 @@
 namespace App\Http\Controllers;
 
 use App\Models\Usuario;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
-
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class UsuarioController extends Controller
 {
+    // METODO DE REGISTRAR USUARIO
     public function register(Request $request)
     {
-        // Log::info($request);
         $validator = Validator::make($request->all(), [
             'nombre' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:usuarios',
             'clave' => 'required|string|min:6',
         ]);
-
         if ($validator->fails()) {
             return response()->json($validator->errors()->toJson(), 400);
         }
-
         $usuario = Usuario::create([
             'nombre' => $request->get('nombre'),
             'email' => $request->get('email'),
             'clave' => bcrypt($request->clave)
         ]);
-
         $token = JWTAuth::fromUsuario($usuario);
-
         return response()->json(compact('usuario', 'token'), 201);
     }
-
+    // METODO DE LOGIN DE USUARIO
     public function login(Request $request)
     {
         $input = $request->only('email', 'clave');
         $jwt_token = null;
-
         if (!$jwt_token = JWTAuth::attempt($input)) {
             return response()->json([
                 'success' => false,
                 'message' => 'Invalid Email or Password',
             ], Response::HTTP_UNAUTHORIZED);
         }
-
         return response()->json([
             'success' => true,
             'token' => $jwt_token,
         ]);
     }
-
+    // METODO DE LOGOUT DE USUARIO
     public function logout(Request $request)
     {
         $this->validate($request, [
             'token' => 'required'
         ]);
-
         try {
             JWTAuth::invalidate($request->token);
-
             return response()->json([
                 'success' => true,
                 'message' => 'Usuario logged out successfully'
@@ -73,9 +65,33 @@ class UsuarioController extends Controller
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
-
     public function me()
     {
         return response()->json(auth()->user());;
+    }
+    // METODO DE ACTUALIZAR USUARIO
+    public function PUTactualizarUsuario(Request $request)
+    {
+        $id = $request->input('id');
+        $nombre = $request->input('nombre');
+        $email = $request->input('email');
+        $clave = $request->input('clave');
+        $battlenetNombre = $request->input('battlenetNombre');
+        try {
+            $usuario = Usuario::where('id', '=', $id)->update(
+                [
+                    'nombre' => $nombre,
+                    'email' => $email,
+                    'clave' => $clave,
+                    'battlenetNombre' => $battlenetNombre
+                ]
+            );
+            return Usuario::all()->where('id', '=', $id);
+        } catch (QueryException $error) {
+            $codigoError = $error->errorInfo[1];
+            if ($codigoError) {
+                return "Error $codigoError";
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 // Enlaces a la clases que contienen los métodos de la API
@@ -10,13 +11,13 @@ use App\Http\Controllers\MensajeController;
 // ENDPOINTS DE AUTENTIFICACIÓN / USUARIOS //
 Route::post('/register', [UsuarioController::class, 'register']);
 Route::post('/login', [UsuarioController::class, 'login']);
-Route::delete('/borrarUsuario', [UsuarioController::class, 'borrarUsuario']);
-Route::put('/actualizarUsuario', [UsuarioController::class, 'actualizarUsuario']);
+Route::delete('/borrarUsuario', [UsuarioController::class, 'DELETEborrarUsuario']);
+Route::put('/actualizarUsuario', [UsuarioController::class, 'PUTactualizarUsuario']);
 
 // ENDPOINTS DE AUTENTIFICACIÓN / USUARIOS / MIDDLEWARE //
 Route::group(['middleware' => 'jwt.auth'], function () {
     Route::post('/logout', [UsuarioController::class, 'logout']);
-    Route::get('/profile', [UsuarioController::class, 'me']);
+    Route::get('/me', [UsuarioController::class, 'me']);
 });
 
 // ENDPOINTS DE PARTIDA //
