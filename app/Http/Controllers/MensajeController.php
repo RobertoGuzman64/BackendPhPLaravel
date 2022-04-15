@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use App\Models\Mensaje;
@@ -12,6 +13,19 @@ class MensajeController extends Controller
     {
         try {
             $mensajes = Mensaje::all();
+            return $mensajes;
+        } catch (QueryException $error) {
+            $codigoError = $error->errorInfo[1];
+            if ($codigoError) {
+                return "Error $codigoError";
+            }
+        }
+    }
+    // METODO DE MOSTRAR MENSAJES DE UNA PARTIDA
+    public function GETmensajePartidaId(Request $request)
+    {
+        try {
+            $mensajes = Mensaje::where('id_partida', $request->input('id_partida'))->get();
             return $mensajes;
         } catch (QueryException $error) {
             $codigoError = $error->errorInfo[1];
