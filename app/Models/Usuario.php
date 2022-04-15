@@ -26,7 +26,6 @@ class Usuario extends Authenticatable implements JWTSubject
         'role',
         'battlenetNombre',
     ];
-
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -36,7 +35,6 @@ class Usuario extends Authenticatable implements JWTSubject
         'clave',
         'remember_token',
     ];
-
     /**
      * The attributes that should be cast.
      *
@@ -45,12 +43,10 @@ class Usuario extends Authenticatable implements JWTSubject
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
     public function getJWTIdentifier()
     {
         return $this->getKey();
     }
-
     /**
      * Return a key value array, containing any custom claims to be added to the JWT.
      *
@@ -59,5 +55,18 @@ class Usuario extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
-    } 
+    }
+    // RELACIONES DE LA TABLA USUARIOS
+    public function partidas()
+    {
+        return $this->hasMany(Partida::class);
+    }
+    public function mensajes()
+    {
+        return $this->hasMany(Mensaje::class);
+    }
+    public function jugadores()
+    {
+        return $this->hasMany(Jugador::class);
+    }
 }
