@@ -3,22 +3,22 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 // Enlaces a la clases que contienen los métodos de la API
-use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\PartidaController;
 use App\Http\Controllers\JuegoController;
 use App\Http\Controllers\MensajeController;
 use App\Http\Controllers\JugadorController;
 
 // ENDPOINTS DE AUTENTIFICACIÓN / USUARIOS //
-Route::post('/register', [UsuarioController::class, 'register']);
-Route::post('/login', [UsuarioController::class, 'login']);
-Route::delete('/borrarUsuario', [UsuarioController::class, 'DELETEborrarUsuario']);
-Route::put('/actualizarUsuario', [UsuarioController::class, 'PUTactualizarUsuario']);
+Route::post('/register', [UserController::class, 'register']);
+Route::post('/login', [UserController::class, 'login']);
+Route::delete('/borrarUsuario', [UserController::class, 'DELETEborrarUsuario']);
+Route::put('/actualizarUsuario', [UserController::class, 'PUTactualizarUsuario']);
 
 // ENDPOINTS DE AUTENTIFICACIÓN / USUARIOS / MIDDLEWARE //
 Route::group(['middleware' => 'jwt.auth'], function () {
-    Route::post('/logout', [UsuarioController::class, 'logout']);
-    Route::get('/me', [UsuarioController::class, 'me']);
+    Route::post('/logout', [UserController::class, 'logout']);
+    Route::get('/me', [UserController::class, 'me']);
 });
 
 // ENDPOINTS DE PARTIDA //

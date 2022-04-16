@@ -20,9 +20,9 @@ class CreateMensajesTable extends Migration
             $table->unsignedInteger('usuarioId');
             $table->foreign('usuarioId')
                 ->references('id')
-                ->on('usuarios')
+                ->on('users')
                 ->unsigned()
-                ->constrained('usuarios')
+                ->constrained('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->unsignedInteger('partidaId');

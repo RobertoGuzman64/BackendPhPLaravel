@@ -10,7 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 
-class Usuario extends Authenticatable implements JWTSubject
+class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -22,7 +22,7 @@ class Usuario extends Authenticatable implements JWTSubject
     protected $fillable = [
         'nombre',
         'email',
-        'clave',
+        'password',
         'role',
         'battlenetNombre',
     ];
@@ -32,7 +32,7 @@ class Usuario extends Authenticatable implements JWTSubject
      * @var array<int, string>
      */
     protected $hidden = [
-        'clave',
+        'password',
         'remember_token',
     ];
     /**

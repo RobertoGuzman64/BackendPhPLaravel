@@ -109,7 +109,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | Specify the length of time (in minutes) that the token can be refreshed
-    | within. I.E. The usuario can refresh their token within a 2 week window of
+    | within. I.E. The user can refresh their token within a 2 week window of
     | the original token being created until they must re-authenticate.
     | Defaults to 2 weeks.
     |
@@ -181,7 +181,7 @@ return [
     |
     | This will determine whether a `prv` claim is automatically added to
     | the token. The purpose of this is to ensure that if you have multiple
-    | authentication models e.g. `App\usuario` & `App\OtherPerson`, then we
+    | authentication models e.g. `App\user` & `App\OtherPerson`, then we
     | should prevent one authentication request from impersonating another,
     | if 2 tokens happen to have the same id across the 2 different models.
     |
@@ -282,7 +282,7 @@ return [
         | Authentication Provider
         |--------------------------------------------------------------------------
         |
-        | Specify the provider that is used to authenticate usuarios.
+        | Specify the provider that is used to authenticate users.
         |
         */
 

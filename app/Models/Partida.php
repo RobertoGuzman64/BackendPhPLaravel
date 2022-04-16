@@ -20,9 +20,9 @@ class Partida extends Model
         return $this->belongsTo(Juego::class);
     }
 
-    public function usuarios()
+    public function users()
     {
-        return $this->belongsTo(Usuario::class);
+        return $this->belongsTo(User::class);
     }
 
     public function mensajes()

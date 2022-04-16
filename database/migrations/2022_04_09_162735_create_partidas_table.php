@@ -27,9 +27,9 @@ class CreatePartidasTable extends Migration
             $table->unsignedInteger('propietarioId');
             $table->foreign('propietarioId')
                 ->references('id')
-                ->on('usuarios')
+                ->on('users')
                 ->unsigned()
-                ->constrained('usuarios')
+                ->constrained('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->timestamps();

@@ -19,9 +19,9 @@ class Jugador extends Model
         return $this->belongsTo(Partida::class);
     }
 
-    public function usuarios()
+    public function users()
     {
-        return $this->belongsTo(Usuario::class);
+        return $this->belongsTo(User::class);
     }
     
 }

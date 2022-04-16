@@ -2,38 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Usuario;
+use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
-class UsuarioController extends Controller
+class UserController extends Controller
 {
     // METODO DE REGISTRAR USUARIO
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'nombre' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:usuarios',
-            'clave' => 'required|string|min:6',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6',
+            'battlenetNombre' => 'required|string|max:255',
         ]);
         if ($validator->fails()) {
             return response()->json($validator->errors()->toJson(), 400);
         }
-        $usuario = Usuario::create([
+        $user = User::create([
             'nombre' => $request->get('nombre'),
             'email' => $request->get('email'),
-            'clave' => bcrypt($request->clave)
+            'password' => bcrypt($request->password),
+            'battlenetNombre' => $request->get('battlenetNombre'),
         ]);
-        $token = JWTAuth::fromUsuario($usuario);
-        return response()->json(compact('usuario', 'token'), 201);
+        $token = JWTAuth::fromUser($user);
+        return response()->json(compact('user'), 201);
     }
     // METODO DE LOGIN DE USUARIO
     public function login(Request $request)
     {
-        $input = $request->only('email', 'clave');
+        $input = $request->only('email', 'password');
         $jwt_token = null;
         if (!$jwt_token = JWTAuth::attempt($input)) {
             return response()->json([
@@ -56,12 +58,12 @@ class UsuarioController extends Controller
             JWTAuth::invalidate($request->token);
             return response()->json([
                 'success' => true,
-                'message' => 'Usuario logged out successfully'
+                'message' => 'User logged out successfully'
             ]);
         } catch (\Exception $exception) {
             return response()->json([
                 'success' => false,
-                'message' => 'Sorry, the usuario cannot be logged out'
+                'message' => 'Sorry, the user cannot be logged out'
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
@@ -70,23 +72,23 @@ class UsuarioController extends Controller
         return response()->json(auth()->user());;
     }
     // METODO DE ACTUALIZAR USUARIO
-    public function PUTactualizarUsuario(Request $request)
+    public function PUTactualizarUser(Request $request)
     {
         $id = $request->input('id');
         $nombre = $request->input('nombre');
         $email = $request->input('email');
-        $clave = $request->input('clave');
+        $password = $request->input('password');
         $battlenetNombre = $request->input('battlenetNombre');
         try {
-            $usuario = Usuario::where('id', '=', $id)->update(
+            $user = User::where('id', '=', $id)->update(
                 [
                     'nombre' => $nombre,
                     'email' => $email,
-                    'clave' => $clave,
+                    'password' => $password,
                     'battlenetNombre' => $battlenetNombre
                 ]
             );
-            return Usuario::all()->where('id', '=', $id);
+            return User::all()->where('id', '=', $id);
         } catch (QueryException $error) {
             $codigoError = $error->errorInfo[1];
             if ($codigoError) {
@@ -99,8 +101,8 @@ class UsuarioController extends Controller
     {
         $id = $request->input('id');
         try {
-            $usuario = Usuario::where('id', '=', $id)->delete();
-            return Usuario::all()->where('id', '=', $id);
+            $user = User::where('id', '=', $id)->delete();
+            return User::all()->where('id', '=', $id);
         } catch (QueryException $error) {
             $codigoError = $error->errorInfo[1];
             if ($codigoError) {
