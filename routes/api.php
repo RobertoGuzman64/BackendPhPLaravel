@@ -9,10 +9,12 @@ use App\Http\Controllers\JuegoController;
 use App\Http\Controllers\MensajeController;
 use App\Http\Controllers\JugadorController;
 
+// http://localhost:8000/api/ ENDPOINT LOCAL
+
 // ENDPOINTS DE AUTENTIFICACIÓN / USUARIOS //
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);
-Route::delete('/borrarUsuario', [UserController::class, 'DELETEborrarUsuario']);
+Route::delete('/borrarUsuario/{id}', [UserController::class, 'DELETEborrarUsuario']);
 Route::put('/actualizarUsuario', [UserController::class, 'PUTactualizarUsuario']);
 
 // ENDPOINTS DE AUTENTIFICACIÓN / USUARIOS / MIDDLEWARE //
