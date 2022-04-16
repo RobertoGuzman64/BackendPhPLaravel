@@ -51,11 +51,8 @@ class UserController extends Controller
     // METODO DE LOGOUT DE USUARIO
     public function logout(Request $request)
     {
-        $this->validate($request, [
-            'token' => 'required'
-        ]);
         try {
-            JWTAuth::invalidate($request->token);
+            JWTAuth::invalidate($request->bearerToken());
             return response()->json([
                 'success' => true,
                 'message' => 'User logged out successfully'
@@ -64,7 +61,7 @@ class UserController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Sorry, the user cannot be logged out'
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            ], 500);
         }
     }
     public function me()
@@ -72,7 +69,7 @@ class UserController extends Controller
         return response()->json(auth()->user());;
     }
     // METODO DE ACTUALIZAR USUARIO
-    public function PUTactualizarUser(Request $request)
+    public function PUTactualizarUsuario(Request $request)
     {
         $id = $request->input('id');
         $nombre = $request->input('nombre');
