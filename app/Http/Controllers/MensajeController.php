@@ -22,10 +22,11 @@ class MensajeController extends Controller
         }
     }
     // METODO DE MOSTRAR MENSAJES DE UNA PARTIDA
-    public function GETmensajePartidaId(Request $request)
+    public function POSTmensajesPartidaId(Request $request)
     {
+        $partidaId = $request->input('partidaId');
         try {
-            $mensajes = Mensaje::where('id_partida', $request->input('id_partida'))->get();
+            $mensajes = Mensaje::where('partidaId', $partidaId)->get();
             return $mensajes;
         } catch (QueryException $error) {
             $codigoError = $error->errorInfo[1];
@@ -37,13 +38,19 @@ class MensajeController extends Controller
     // METODO DE CREAR UN MENSAJE
     public function POSTcrearMensaje(Request $request)
     {
+        $mensaje = $request->input('mensaje');
+        $fecha = $request->input('fecha');
+        $usuarioId = $request->input('usuarioId');
+        $partidaId = $request->input('partidaId');
         try {
-            $mensaje = new Mensaje();
-            $mensaje->id_usuario = $request->input('id_usuario');
-            $mensaje->id_partida = $request->input('id_partida');
-            $mensaje->mensaje = $request->input('mensaje');
-            $mensaje->save();
-            return $mensaje;
+            return Mensaje::create(
+                [
+                    'mensaje' => $mensaje,
+                    'fecha' => $fecha,
+                    'usuarioId' => $usuarioId,
+                    'partidaId' => $partidaId
+                ]
+            );
         } catch (QueryException $error) {
             $codigoError = $error->errorInfo[1];
             if ($codigoError) {
@@ -54,8 +61,9 @@ class MensajeController extends Controller
     // METODO DE MOSTRAR UN MENSAJE POR ID
     public function POSTmostrarMensajeId(Request $request)
     {
+        $id = $request->input('id');
         try {
-            $mensaje = Mensaje::find($request->input('id'));
+            $mensaje = Mensaje::find($id);
             return $mensaje;
         } catch (QueryException $error) {
             $codigoError = $error->errorInfo[1];
@@ -67,11 +75,12 @@ class MensajeController extends Controller
     // METODO DE ACTUALIZAR UN MENSAJE
     public function PUTactualizaMensaje(Request $request)
     {
+        $id = $request->input('id');
         try {
-            $mensaje = Mensaje::find($request->input('id'));
-            $mensaje->id_usuario = $request->input('id_usuario');
-            $mensaje->id_partida = $request->input('id_partida');
+            $mensaje = Mensaje::find($id);
             $mensaje->mensaje = $request->input('mensaje');
+            $mensaje->usuarioId = $request->input('usuarioId');
+            $mensaje->partidaId = $request->input('partidaId');
             $mensaje->save();
             return $mensaje;
         } catch (QueryException $error) {
