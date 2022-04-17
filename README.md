@@ -1,7 +1,10 @@
-# Backend PHP Laravel
+# Proyecto Ocio Backend PhP Laravel para....
+***
+![Foto de la academia de Geekhubs](./img/geekhubs.png)
+***
+## Repositorio en el que se a estado trabajando el proyecto.
 
-## Solicitan desde GeeksHubs Academy realizar una aplicación para una empresa. El objetivo es que permita que los empleados puedan contactar con otros compañeros para formar grupos para jugar a un videojuego, con el objetivo de poder compartir un rato de ocio.
-
+## https://github.com/RobertoGuzman64/BackendPhPLaravel
 ## Los requisitos funcionales de la aplicación son los siguientes:
 * Los usuarios se tienen que poder registrar a la aplicación, estableciendo un usuario/contraseña.
 * Los usuarios tienen que autenticarse a la aplicación haciendo login.
