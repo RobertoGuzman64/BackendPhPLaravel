@@ -3,8 +3,9 @@
 ![Foto de la academia de Geekhubs](./img/geekhubs.png)
 ***
 ## Repositorio en el que se a estado trabajando el proyecto.
-
 ## https://github.com/RobertoGuzman64/BackendPhPLaravel
+## El proyecto se encuentra deployado en el siguente enlace:
+## https://phplaravelbackend.herokuapp.com/
 ## Los requisitos funcionales de la aplicación son los siguientes:
 * Los usuarios se tienen que poder registrar a la aplicación, estableciendo un usuario/contraseña.
 * Los usuarios tienen que autenticarse a la aplicación haciendo login.
