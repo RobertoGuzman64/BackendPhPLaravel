@@ -36,11 +36,12 @@
 * Eloquent --> usado para acceso y manejo de la base de datos del proyecto.
 * Git --> usado para tener alojado el proyecto en repositorio de github.
 * Heroku --> usado para tener la API deployada.
+* Jwt --> usado para la autenticación de los Usuarios
 
 ## ENDPOINTS DE LA API
 
 * ENLACE A POSTMAN, CONFIGURADO CON TODOS LOS ENDPOINTS (LOCAL)
-    * [![Probar en Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/11138723-7f30b435-092e-48c3-93d5-3d97447d1b8f?action=collection%2Ffork&collection-url=entityId%3D11138723-7f30b435-092e-48c3-93d5-3d97447d1b8f%26entityType%3Dcollection%26workspaceId%3D16ffb9c9-152b-4dd3-bcad-3519fd225e65)
+    * [![Probar en Postman](https://run.pstmn.io/button.svg)](https://go.postman.co/workspace/My-Workspace~7d94c733-7b7b-4ce9-8954-4e704cb99832/collection/19641286-350ba66c-1012-46e8-ae24-449539e0d4df?action=share&creator=19641286)
 
 * USER
     * Mostrar el perfil de Usuario --> /api/me (GET)
