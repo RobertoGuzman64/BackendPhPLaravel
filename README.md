@@ -41,7 +41,7 @@
 ## ENDPOINTS DE LA API
 
 * ENLACE A POSTMAN, CONFIGURADO CON TODOS LOS ENDPOINTS (LOCAL)
-    * [![Probar en Postman](https://run.pstmn.io/button.svg)](https://www.postman.com/galactic-rocket-909161/workspace/roberto-guzmn/collection/19641286-0f7e3aeb-9649-444f-ad47-97f24ee74cd1?action=share&creator=19641286)
+    * [![Probar en Postman](https://run.pstmn.io/button.svg)](https://documenter.getpostman.com/view/19641286/Uyr5oKYK)
 
 * USER
     * Mostrar el perfil de Usuario --> /api/me (GET)
