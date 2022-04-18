@@ -4,6 +4,9 @@
 ***
 ## Repositorio en el que se a estado trabajando el proyecto.
 ## https://github.com/RobertoGuzman64/BackendPhPLaravel
+***
+![PHP HEROKU MYSQL](/img/phpherokumysql.jpg)
+***
 ## El proyecto se encuentra deployado en el siguente enlace:
 ## https://phplaravelbackend.herokuapp.com/
 ## Los requisitos funcionales de la aplicación son los siguientes:
@@ -41,8 +44,10 @@
 
 ## ENDPOINTS DE LA API
 
-* ENLACE A POSTMAN, CONFIGURADO CON TODOS LOS ENDPOINTS (LOCAL)
-    * [![Probar en Postman](https://run.pstmn.io/button.svg)](https://documenter.getpostman.com/view/19641286/Uyr5oKYK)
+* ENLACE A LA COLECCION DE POSTMAN, CONFIGURADO CON TODOS LOS ENDPOINTS DE LA API
+    * (IMPORTANTE) DENTRO DEL ENLACE CLICKEA ARRIBA A LA DERECHA EN RUN IN POSTMAN PARA IMPORTAR LA COLECCIÓN
+
+    [![Probar en Postman](https://run.pstmn.io/button.svg)](https://documenter.getpostman.com/view/19641286/Uyr5oKYK)
 
 * USER
     * Mostrar el perfil de Usuario --> /api/me (GET)
