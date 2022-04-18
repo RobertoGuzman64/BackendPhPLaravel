@@ -10,6 +10,7 @@ use App\Http\Controllers\MensajeController;
 use App\Http\Controllers\JugadorController;
 
 // http://localhost:8000/api/ ENDPOINT LOCAL
+// https://phplaravelbackend.herokuapp.com/api/ ENDPOINT HEROKU
 
 // ENDPOINTS DE AUTENTIFICACIÓN / USUARIOS //
 Route::post('/register', [UserController::class, 'register']);
