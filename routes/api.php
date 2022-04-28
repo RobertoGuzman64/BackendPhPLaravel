@@ -49,7 +49,7 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::get('/mensajeId', [MensajeController::class, "mostrarMensajeId"]);
     Route::get('/mensajesPartidaId', [MensajeController::class, "mensajesPartidaId"]);
     Route::post('/mensajes', [MensajeController::class, "crearMensaje"]);
-    Route::put('/mensajeActualiza', [MensajeController::class, "actualizaMensaje"]);
+    Route::put('/mensajeActualiza/{id}', [MensajeController::class, "actualizaMensaje"]);
     Route::delete('/mensajeBorrar', [MensajeController::class, "borrarMensaje"]);
 });
 
