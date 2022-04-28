@@ -39,7 +39,7 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::get('/juegos', [JuegoController::class, "mostrarJuegos"]);
     Route::get('/juegoId', [JuegoController::class, "mostrarJuegoId"]);
     Route::post('/juegos', [JuegoController::class, "crearJuego"]);
-    Route::put('/juegoActualiza', [JuegoController::class, "actualizaJuego"]);
+    Route::put('/juegoActualiza/{id}', [JuegoController::class, "actualizaJuego"]);
     Route::delete('/juegoBorrar', [JuegoController::class, "borrarJuego"]);
 });
 

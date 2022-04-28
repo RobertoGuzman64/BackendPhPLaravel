@@ -4,92 +4,99 @@ namespace App\Http\Controllers;
 
 use Illuminate\Database\QueryException;
 use App\Models\Juego;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class JuegoController extends Controller
 {
     // METODO DE MOSTRAR TODOS LOS JUEGOS
-    public function GETmostrarJuegos()
+    public function mostrarJuegos()
     {
+        Log::info('mostrarJuegos()');
         try {
             $juegos = Juego::all();
             return $juegos;
         } catch (QueryException $error) {
-            $codigoError = $error->errorInfo[1];
-            if ($codigoError) {
-                return "Error $codigoError";
-            }
+            Log::error($error->getMessage());
+            return response()->json(['message' => 'Algo salió mal'], 500);
         }
     }
     // METODO DE CREAR JUEGO
-    public function POSTcrearJuego(Request $request)
+    public function crearJuego(Request $request)
     {
-        $titulo = $request->input('titulo');
-        $imagenJuegoURL = $request->input('imagenJuegoURL');
-        $juegoURL = $request->input('juegoURL');
+        Log::info('crearJuego()');
         try {
-            return Juego::create(
-                [
-                    'titulo' => $titulo,
-                    'imagenJuegoURL' => $imagenJuegoURL,
-                    'juegoURL' => $juegoURL,
-                ]
-            );
-        } catch (QueryException $error) {
-            $codigoError = $error->errorInfo[1];
-            if ($codigoError) {
-                return "Error $codigoError";
+            $validator = Validator::make($request->all(), [
+                'titulo' => 'required|string|max:255',
+                'imagenJuegoURL' => 'required|string|max:255',
+                'juegoURL' => 'required|string|max:255',
+            ]);
+            if ($validator->fails()) {
+                return response()->json(['message' => 'Validación fallida'], 400);
             }
+            $juego = Juego::create([
+                'titulo' => $request->titulo,
+                'imagenJuegoURL' => $request->imagenJuegoURL,
+                'juegoURL' => $request->juegoURL,
+            ]);
+            Log::info('Juego creado');
+            return response()->json($juego, 200);
+        } catch (QueryException $error) {
+            Log::error($error->getMessage());
+            return response()->json(['message' => 'Algo salió mal'], 500);
         }
     }
     // METODO DE MOSTRAR UN JUEGO POR ID
-    public function POSTmostrarJuegoId(Request $request)
+    public function mostrarJuegoId(Request $request)
     {
+        Log::info('mostrarJuegoId()');
         $id = $request->input('id');
         try {
             $juego = Juego::find($id);
             return $juego;
         } catch (QueryException $error) {
-            $codigoError = $error->errorInfo[1];
-            if ($codigoError) {
-                return "Error $codigoError";
-            }
+            Log::error($error->getMessage());
+            return response()->json(['message' => 'Algo salió mal'], 500);
         }
     }
     // METODO DE ACTUALIZAR UN JUEGO
-    public function PUTactualizaJuego(Request $request)
+    public function actualizaJuego(Request $request, $id)
     {
-        $id = $request->input('id');
-        $titulo = $request->input('titulo');
-        $imagenJuegoURL = $request->input('imagenJuegoURL');
-        $juegoURL = $request->input('juegoURL');
+        Log::info('actualizaJuego()');
         try {
-            $juego = Juego::find($id);
-            $juego->titulo = $titulo;
-            $juego->imagenJuegoURL = $imagenJuegoURL;
-            $juego->juegoURL = $juegoURL;
-            $juego->save();
-            return $juego;
-        } catch (QueryException $error) {
-            $codigoError = $error->errorInfo[1];
-            if ($codigoError) {
-                return "Error $codigoError";
+            $validator = Validator::make($request->all(), [
+                'titulo' => 'required|string|max:255',
+                'imagenJuegoURL' => 'required|string|max:255',
+                'juegoURL' => 'required|string|max:255',
+            ]);
+            if ($validator->fails()) {
+                return response()->json(['message' => 'Validación fallida'], 400);
             }
+            $juego = Juego::find($id);
+            $juego->titulo = $request->titulo;
+            $juego->imagenJuegoURL = $request->imagenJuegoURL;
+            $juego->juegoURL = $request->juegoURL;
+            $juego->save();
+            Log::info('Juego actualizado');
+            return response()->json($juego, 200);
+        } catch (QueryException $error) {
+            Log::error($error->getMessage());
+            return response()->json(['message' => 'Algo salió mal'], 500);
         }
     }
     // METODO DE ELIMINAR UN JUEGO
-    public function DELETEborrarJuego(Request $request)
+    public function borrarJuego(Request $request)
     {
+        Log::info('borrarJuego()');
         $id = $request->input('id');
         try {
             $juego = Juego::find($id);
             $juego->delete();
             return "Juego Borrado";
         } catch (QueryException $error) {
-            $codigoError = $error->errorInfo[1];
-            if ($codigoError) {
-                return "Error $codigoError";
-            }
+            Log::error($error->getMessage());
+            return response()->json(['message' => 'Algo salió mal'], 500);
         }
     }
 }
