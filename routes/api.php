@@ -21,7 +21,7 @@ Route::post('/login', [UserController::class, 'login']);
 Route::group(['middleware' => 'jwt.auth'], function () {
     Route::post('/logout', [UserController::class, 'logout']);
     Route::get('/me', [UserController::class, 'me']);
-    Route::put('/usuarioActualiza', [UserController::class, 'actualizaUsuario']);
+    Route::put('/usuarioActualiza/{id}', [UserController::class, 'actualizaUsuario']);
     Route::delete('/borrarUsuario/{id}', [UserController::class, 'borrarUsuario']);
 });
 

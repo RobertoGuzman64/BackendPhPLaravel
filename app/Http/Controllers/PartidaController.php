@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Partida;
 
 class PartidaController extends Controller
 {
     // METODO DE MOSTRAR TODAS LAS PARTIDAS
-    public function GETmostrarPartidas()
+    public function mostrarPartidas()
     {
         try {
             $partidas = Partida::all();
@@ -18,16 +19,23 @@ class PartidaController extends Controller
             $codigoError = $error->errorInfo[1];
             if ($codigoError) {
                 return "Error $codigoError";
+            }else{
+                
             }
         }
     }
     // METODO DE CREAR PARTIDA
-    public function POSTcrearPartida(Request $request)
+    public function crearPartida(Request $request)
     {
         $nombre = $request->input('nombre');
         $propietarioId = $request->input('propietarioId');
         $juegoId = $request->input('juegoId');
         try {
+            $validator = Validator::make($request->all(), [
+                'nombre' => 'required|string|max:255',
+                'propietarioId' => 'required|max:255',
+                'juegoId' => 'required|max:255',
+            ]);
             return Partida::create(
                 [
                     'nombre' => $nombre,
@@ -44,7 +52,7 @@ class PartidaController extends Controller
     }
 
     // METODO DE MOSTRAR PARTIDA POR ID
-    public function POSTmostrarPartidaId(Request $request)
+    public function mostrarPartidaId(Request $request)
     {
         $id = $request->input('id');
         try {
@@ -59,7 +67,7 @@ class PartidaController extends Controller
     }
 
     // METODO DE ACTUALIZAR PARTIDA
-    public function PUTactualizaPartida(Request $request)
+    public function actualizaPartida(Request $request)
     {
         $id = $request->input('id');
         $nombre = $request->input('nombre');
@@ -81,7 +89,7 @@ class PartidaController extends Controller
     }
 
     // METODO DE BORRAR PARTIDA
-    public function DELETEborrarPartida(Request $request)
+    public function borrarPartida(Request $request)
     {
         $id = $request->input('id');
         try {

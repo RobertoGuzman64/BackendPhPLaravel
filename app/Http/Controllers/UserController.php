@@ -6,7 +6,6 @@ use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
@@ -72,7 +71,6 @@ class UserController extends Controller
     // METODO DE ACTUALIZAR USUARIO
     public function actualizaUsuario(Request $request, $id)
     {
-        Log::info('actualizaUsuario()');
         try {
             $validator = Validator::make($request->all(), [
                 'nombre' => 'required|string|max:255',
@@ -86,15 +84,13 @@ class UserController extends Controller
             $user = User::find($id);
             $user->nombre = $request->nombre;
             $user->email = $request->email;
-            $user->password = bcrypt($request->password);
-            $user->battlenetNombre = $request->battlenetNombre;
-            Log::info('Usuario Actualizado');
+            $user->save();
             return response()->json($user, 200);
         } catch (QueryException $error) {
             $codigoError = $error->errorInfo[1];
             if ($codigoError) {
                 return response()->json(['error' => 'El email ya existe'], 409);
-            }else{
+            } else {
                 return response()->json(['error' => 'Error al actualizar el usuario'], 500);
             }
         }
@@ -110,7 +106,7 @@ class UserController extends Controller
             $codigoError = $error->errorInfo[1];
             if ($codigoError) {
                 return response()->json(['error' => 'El Usuario no existe'], 409);
-            }else{
+            } else {
                 return response()->json(['error' => 'Error al eliminar el usuario'], 500);
             }
         }
