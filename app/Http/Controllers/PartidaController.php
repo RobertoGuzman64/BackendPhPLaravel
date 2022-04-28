@@ -33,7 +33,7 @@ class PartidaController extends Controller
                 'juegoId' => 'required|max:255',
             ]);
             if ($validator->fails()) {
-                return response()->json(['message' => 'Validation failed'], 400);
+                return response()->json(['message' => 'Validación fallida'], 400);
             }
             $partida = Partida::create([
                 'nombre' => $request->nombre,
@@ -80,7 +80,8 @@ class PartidaController extends Controller
             $partida->propietarioId = $request->propietarioId;
             $partida->juegoId = $request->juegoId;
             $partida->save();
-            return $partida;
+            Log::info('Partida Actualizada');
+            return response()->json($partida, 200);
         } catch (QueryException $error) {
             Log::error($error->getMessage());
             return response()->json(['message' => 'Algo salió mal'], 500);
