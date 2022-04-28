@@ -4,121 +4,121 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Jugador;
 
 class JugadorController extends Controller
 {
     // METODO DE MOSTRAR TODOS LOS JUGADORES
-    public function GETmostrarJugadores()
+    public function mostrarJugadores()
     {
+        Log::info('mostrarJugadores()');
         try {
             $jugadores = Jugador::all();
             return $jugadores;
         } catch (QueryException $error) {
-            $codigoError = $error->errorInfo[1];
-            if ($codigoError) {
-                return "Error $codigoError";
-            }
+            Log::error($error->getMessage());
+            return response()->json(['message' => 'Algo salió mal'], 500);
         }
     }
     // METODO DE CREAR UN JUGADOR
-    public function POSTcrearJugador(Request $request)
+    public function crearJugador(Request $request)
     {
-        $partidaId = $request->input('partidaId');
-        $usuarioId = $request->input('usuarioId');
+        Log::info('crearJugador()');
         try {
-            return Jugador::create(
-                [
-                    'partidaId' => $partidaId,
-                    'usuarioId' => $usuarioId
-                ]
-            );
-        } catch (QueryException $error) {
-            $codigoError = $error->errorInfo[1];
-            if ($codigoError) {
-                return "Error $codigoError";
+            $validator = Validator::make($request->all(), [
+                'partidaId' => 'required|max:255',
+                'usuarioId' => 'required|max:255',
+            ]);
+            if ($validator->fails()) {
+                return response()->json(['message' => 'Validación fallida'], 400);
             }
+            $jugador = Jugador::create([
+                'partidaId' => $request->partidaId,
+                'usuarioId' => $request->usuarioId,
+            ]);
+            Log::info('Jugador creado');
+            return response()->json($jugador, 200);
+        } catch (QueryException $error) {
+            Log::error($error->getMessage());
+            return response()->json(['message' => 'Algo salió mal'], 500);
         }
     }
     // METODO DE MOSTRAR UN JUGADOR POR ID
-    public function POSTmostrarJugadorId(Request $request)
+    public function mostrarJugadorId(Request $request)
     {
+        Log::info('mostrarJugadorId()');
         $jugadorId = $request->input('jugadorId');
         try {
             $jugador = Jugador::find($jugadorId);
             return $jugador;
         } catch (QueryException $error) {
-            $codigoError = $error->errorInfo[1];
-            if ($codigoError) {
-                return "Error $codigoError";
-            }
+            Log::error($error->getMessage());
+            return response()->json(['message' => 'Algo salió mal'], 500);
         }
     }
     // METODO DE MOSTRAR UN JUGADOR POR PARTIDA ID
-    public function POSTmostrarJugadorPartidaId(Request $request)
+    public function mostrarJugadorPartidaId(Request $request)
     {
+        Log::info('mostrarJugadorPartidaId()');
         $partidaId = $request->input('partidaId');
         try {
             $jugador = Jugador::where('partidaId', $partidaId)->get();
             return $jugador;
         } catch (QueryException $error) {
-            $codigoError = $error->errorInfo[1];
-            if ($codigoError) {
-                return "Error $codigoError";
-            }
+            Log::error($error->getMessage());
+            return response()->json(['message' => 'Algo salió mal'], 500);
         }
     }
     // METODO DE MOSTRAR UN JUGADOR POR USUARIO ID
-    public function POSTmostrarJugadorUsuarioId(Request $request)
+    public function mostrarJugadorUsuarioId(Request $request)
     {
+        Log::info('mostrarJugadorUsuarioId()');
         $usuarioId = $request->input('usuarioId');
         try {
             $jugador = Jugador::where('usuarioId', $usuarioId)->get();
             return $jugador;
         } catch (QueryException $error) {
-            $codigoError = $error->errorInfo[1];
-            if ($codigoError) {
-                return "Error $codigoError";
-            }
+            Log::error($error->getMessage());
+            return response()->json(['message' => 'Algo salió mal'], 500);
         }
     }
     // METODO DE ACTUALIZAR UN JUGADOR
-    public function PUTactualizaJugador(Request $request)
+    public function actualizaJugador(Request $request, $id)
     {
-        $id = $request->input('id');
-        $partidaId = $request->input('partidaId');
-        $usuarioId = $request->input('usuarioId');
+        Log::info('actualizaJugador()');
         try {
-            $jugador = Jugador::find($id);
-            $jugador->partidaId = $partidaId;
-            $jugador->usuarioId = $usuarioId;
-            $jugador->save();
-            return $jugador;
-        } catch (QueryException $error) {
-            $codigoError = $error->errorInfo[1];
-            if ($codigoError) {
-                return "Error $codigoError";
+            $validator = Validator::make($request->all(), [
+                'partidaId' => 'required|max:255',
+                'usuarioId' => 'required|max:255',
+            ]);
+            if ($validator->fails()) {
+                return response()->json(['message' => 'Validación fallida'], 400);
             }
+            $jugador = Jugador::find($id);
+            $jugador->partidaId = $request->partidaId;
+            $jugador->usuarioId = $request->usuarioId;
+            $jugador->save();
+            Log::info('Jugador actualizado');
+            return response()->json($jugador, 200);
+        } catch (QueryException $error) {
+            Log::error($error->getMessage());
+            return response()->json(['message' => 'Algo salió mal'], 500);
         }
     }
     // METODO DE ELIMINAR UN JUGADOR
-    public function DELETEborrarJugador(Request $request)
+    public function borrarJugador(Request $request)
     {
+        Log::info('borrarJugador()');
         $id = $request->input('id');
         try {
             $jugador = Jugador::find($id);
             $jugador->delete();
             return $jugador;
         } catch (QueryException $error) {
-            $codigoError = $error->errorInfo[1];
-            if ($codigoError) {
-                return "Error $codigoError";
-            }
-        } catch (QueryException $error) {
-            $codigoError = $error->errorInfo[1];
-            if ($codigoError) {
-                return "Error $codigoError";
-            }
+            Log::error($error->getMessage());
+            return response()->json(['message' => 'Algo salió mal'], 500);
         }
     }
 }

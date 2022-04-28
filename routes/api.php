@@ -60,6 +60,6 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::get('/jugadorPartidaId', [JugadorController::class, "mostrarJugadorPartidaId"]);
     Route::get('/jugadorUsuarioId', [JugadorController::class, "mostrarJugadorUsuarioId"]);
     Route::post('/jugadores', [JugadorController::class, "crearJugador"]);
-    Route::put('/jugadorActualiza', [JugadorController::class, "actualizaJugador"]);
+    Route::put('/jugadorActualiza/{id}', [JugadorController::class, "actualizaJugador"]);
     Route::delete('/jugadorBorrar', [JugadorController::class, "borrarJugador"]);
 });
