@@ -43,12 +43,8 @@ class PartidaController extends Controller
             Log::info('Partida creada');
             return response()->json($partida, 200);
         } catch (QueryException $error) {
-            $codigoError = $error->errorInfo[1];
-            if ($codigoError) {
-                return response()->json(['error' => 'La Partida ya existe'], 409);
-            } else {
-                return response()->json(['error' => 'Error al crear la Partida'], 500);
-            }
+            Log::error($error->getMessage());
+            return response()->json(['message' => 'Algo salió mal'], 500);
         }
     }
 
@@ -86,12 +82,8 @@ class PartidaController extends Controller
             $partida->save();
             return $partida;
         } catch (QueryException $error) {
-            $codigoError = $error->errorInfo[1];
-            if ($codigoError) {
-                return response()->json(['error' => 'La Partida ya existe'], 409);
-            } else {
-                return response()->json(['error' => 'Error al modificar la Partida'], 500);
-            }
+            Log::error($error->getMessage());
+            return response()->json(['message' => 'Algo salió mal'], 500);
         }
     }
 
