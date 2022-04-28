@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('nombre');
             $table->string('email')->unique();
             $table->string('password');
-            $table->boolean('role', 10)->default(0);
+            $table->boolean('role')->default(0);
             $table->string('battlenetNombre', 50)->nullable();
             $table->timestamps();
         });

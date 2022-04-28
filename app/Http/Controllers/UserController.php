@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
@@ -69,32 +70,37 @@ class UserController extends Controller
         return response()->json(auth()->user());;
     }
     // METODO DE ACTUALIZAR USUARIO
-    public function PUTactualizarUsuario(Request $request)
+    public function actualizaUsuario(Request $request, $id)
     {
-        $id = $request->input('id');
-        $nombre = $request->input('nombre');
-        $email = $request->input('email');
-        $password = $request->input('password');
-        $battlenetNombre = $request->input('battlenetNombre');
+        Log::info('actualizaUsuario()');
         try {
-            $user = User::where('id', '=', $id)->update(
-                [
-                    'nombre' => $nombre,
-                    'email' => $email,
-                    'password' => $password,
-                    'battlenetNombre' => $battlenetNombre
-                ]
-            );
-            return User::all()->where('id', '=', $id);
+            $validator = Validator::make($request->all(), [
+                'nombre' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255',
+                'password' => 'required|string|min:6',
+                'battlenetNombre' => 'required|string|max:255',
+            ]);
+            if ($validator->fails()) {
+                return response()->json(['message' => 'Validación fallida'], 400);
+            }
+            $user = User::find($id);
+            $user->nombre = $request->nombre;
+            $user->email = $request->email;
+            $user->password = bcrypt($request->password);
+            $user->battlenetNombre = $request->battlenetNombre;
+            Log::info('Usuario Actualizado');
+            return response()->json($user, 200);
         } catch (QueryException $error) {
             $codigoError = $error->errorInfo[1];
             if ($codigoError) {
-                return "Error $codigoError";
+                return response()->json(['error' => 'El email ya existe'], 409);
+            }else{
+                return response()->json(['error' => 'Error al actualizar el usuario'], 500);
             }
         }
     }
     // METODO DE ELIMINAR USUARIO
-    public function DELETEborrarUsuario(Request $request)
+    public function borrarUsuario(Request $request)
     {
         $id = $request->input('id');
         try {
@@ -103,7 +109,9 @@ class UserController extends Controller
         } catch (QueryException $error) {
             $codigoError = $error->errorInfo[1];
             if ($codigoError) {
-                return "Error $codigoError";
+                return response()->json(['error' => 'El Usuario no existe'], 409);
+            }else{
+                return response()->json(['error' => 'Error al eliminar el usuario'], 500);
             }
         }
     }
