@@ -30,7 +30,7 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::get('/partidas', [PartidaController::class, "mostrarPartidas"]);
     Route::get('/partidaId', [PartidaController::class, "mostrarPartidaId"]);
     Route::post('/partidas', [PartidaController::class, "crearPartida"]);
-    Route::put('/partidaActualiza', [PartidaController::class, "actualizaPartida"]);
+    Route::put('/partidaActualiza/{id}', [PartidaController::class, "actualizaPartida"]);
     Route::delete('/partidaBorrar', [PartidaController::class, "borrarPartida"]);
 });
 
